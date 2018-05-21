@@ -13,10 +13,20 @@ add_message_files(
   FILES
   Actuators.msg
   AttitudeThrust.msg
+  CommandAttitudeThrust.msg
+  CommandMotorSpeed.msg
+  CommandRateThrust.msg
+  CommandRollPitchYawrateThrust.msg
+  CommandTrajectoryPositionYaw.msg
+  CommandTrajectoryPositionYawArray.msg
+  CommandTrajectoryVelocityYawrate.msg
+  FilteredSensorData.msg
+  GpsWaypoint.msg
+  MotorSpeed.msg
   RateThrust.msg
   RollPitchYawrateThrust.msg
-  TorqueThrust.msg
   Status.msg
+  TorqueThrust.msg
 )
 
 generate_messages(DEPENDENCIES std_msgs geometry_msgs)
