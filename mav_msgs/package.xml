@@ -1,6 +1,10 @@
 <package>
   <name>mav_msgs</name>
+<<<<<<< HEAD
   <version>2.0.3</version>
+=======
+  <version>3.2.0</version>
+>>>>>>> cf206701bb06a73c486af617f870c383da7d607f
   <description>Package containing messages for communicating with rotary wing MAVs</description>
 
   <maintainer email="fadri.furrer@mavt.ethz.ch">Fadri Furrer</maintainer>
@@ -12,6 +16,10 @@
   <author>Michael Burri</author>
   <author>Fadri Furrer</author>
   <author>Helen Oleynikova</author>
+<<<<<<< HEAD
+=======
+  <author>Mina Kamel</author>
+>>>>>>> cf206701bb06a73c486af617f870c383da7d607f
 
   <license>ASL 2.0</license>
 
@@ -32,4 +40,5 @@
   <run_depend>message_runtime</run_depend>
   <run_depend>std_msgs</run_depend>
   <run_depend>trajectory_msgs</run_depend>
+
 </package>

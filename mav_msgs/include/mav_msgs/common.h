@@ -23,10 +23,10 @@
 #ifndef MAV_MSGS_COMMON_H
 #define MAV_MSGS_COMMON_H
 
-#include <Eigen/Geometry>
 #include <geometry_msgs/Point.h>
 #include <geometry_msgs/Quaternion.h>
 #include <geometry_msgs/Vector3.h>
+#include <Eigen/Geometry>
 
 namespace mav_msgs {
 
@@ -34,12 +34,27 @@ namespace mav_msgs {
 /// [rad] (from wikipedia).
 inline double MagnitudeOfGravity(const double height,
                                  const double latitude_radians) {
+<<<<<<< HEAD
   double sin_squared_latitude = sin(latitude_radians) * sin(latitude_radians);
   double sin_squared_twice_latitude =
       sin(2 * latitude_radians) * sin(2 * latitude_radians);
   return 9.780327 * ((1 + 0.0053024 * sin_squared_latitude -
                       0.0000058 * sin_squared_twice_latitude) -
                      3.155 * 1e-7 * height);
+=======
+  // gravity calculation constants
+  const double kGravity_0 = 9.780327;
+  const double kGravity_a = 0.0053024;
+  const double kGravity_b = 0.0000058;
+  const double kGravity_c = 3.155 * 1e-7;
+
+  double sin_squared_latitude = sin(latitude_radians) * sin(latitude_radians);
+  double sin_squared_twice_latitude =
+      sin(2 * latitude_radians) * sin(2 * latitude_radians);
+  return kGravity_0 * ((1 + kGravity_a * sin_squared_latitude -
+                        kGravity_b * sin_squared_twice_latitude) -
+                       kGravity_c * height);
+>>>>>>> cf206701bb06a73c486af617f870c383da7d607f
 }
 
 inline Eigen::Vector3d vector3FromMsg(const geometry_msgs::Vector3& msg) {
@@ -134,6 +149,66 @@ inline void getEulerAnglesFromQuaternion(const Eigen::Quaternion<double>& q,
   }
 }
 
+<<<<<<< HEAD
+=======
+// Wraps angle distance betwen two angles (in radians) to -pi to pi.
+inline double getShortestAngleDistance(double angle1, double angle2) {
+  // From burrimi's implementation in mav_flight_manager/devel/iros2015.
+  double angle_mod = std::fmod(angle1 - angle2, 2 * M_PI);
+  if (angle_mod < -M_PI) {
+    angle_mod += 2 * M_PI;
+  } else if (angle_mod > M_PI) {
+    angle_mod -= 2 * M_PI;
+  }
+
+  return angle_mod;
+}
+
+// Wraps angle distance betwen two yaws (in radians) to -pi to pi.
+// Name kept for legacy.
+inline double getShortestYawDistance(double yaw1, double yaw2) {
+  return getShortestAngleDistance(yaw1, yaw2);
+}
+
+// Calculate the nominal rotor rates given the MAV mass, allocation matrix,
+// angular velocity, angular acceleration, and body acceleration (normalized
+// thrust).
+//
+// [torques, thrust]' = A * n^2, where
+// torques = J * ang_acc + ang_vel x J
+// thrust = m * norm(acc)
+//
+// The allocation matrix A has of a hexacopter is:
+// A = K * B, where
+// K = diag(l*c_T, l*c_T, c_M, c_T),
+//     [ s  1  s -s -1 -s]
+// B = [-c  0  c  c  0 -c]
+//     [-1  1 -1  1 -1  1]
+//     [ 1  1  1  1  1  1],
+// l: arm length
+// c_T: thrust constant
+// c_M: moment constant
+// s: sin(30°)
+// c: cos(30°)
+//
+// The inverse can be computed computationally efficient:
+// A^-1 \approx B^pseudo * K^-1
+inline void getSquaredRotorSpeedsFromAllocationAndState(
+    const Eigen::MatrixXd& allocation_inv, const Eigen::Vector3d& inertia,
+    double mass, const Eigen::Vector3d& angular_velocity_B,
+    const Eigen::Vector3d& angular_acceleration_B,
+    const Eigen::Vector3d& acceleration_B,
+    Eigen::VectorXd* rotor_rates_squared) {
+  const Eigen::Vector3d torque =
+      inertia.asDiagonal() * angular_acceleration_B +
+      angular_velocity_B.cross(inertia.asDiagonal() * angular_velocity_B);
+  const double thrust_force = mass * acceleration_B.norm();
+  Eigen::Vector4d input;
+  input << torque, thrust_force;
+  *rotor_rates_squared = allocation_inv * input;
+}
+
+>>>>>>> cf206701bb06a73c486af617f870c383da7d607f
 }  // namespace mav_msgs
 
 #endif  // MAV_MSGS_COMMON_H

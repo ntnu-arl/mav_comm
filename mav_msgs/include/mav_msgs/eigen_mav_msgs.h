@@ -21,8 +21,11 @@
 #ifndef MAV_MSGS_EIGEN_MAV_MSGS_H
 #define MAV_MSGS_EIGEN_MAV_MSGS_H
 
-#include <deque>
 #include <Eigen/Eigen>
+<<<<<<< HEAD
+=======
+#include <deque>
+>>>>>>> cf206701bb06a73c486af617f870c383da7d607f
 #include <iostream>
 
 #include "mav_msgs/common.h"
@@ -32,7 +35,11 @@ namespace mav_msgs {
 struct EigenAttitudeThrust {
   EigenAttitudeThrust()
       : attitude(Eigen::Quaterniond::Identity()),
+<<<<<<< HEAD
         thrust(Eigen::Vector3d::Zero()){};
+=======
+        thrust(Eigen::Vector3d::Zero()) {}
+>>>>>>> cf206701bb06a73c486af617f870c383da7d607f
   EigenAttitudeThrust(const Eigen::Quaterniond& _attitude,
                       const Eigen::Vector3d& _thrust) {
     attitude = _attitude;
@@ -49,7 +56,7 @@ struct EigenActuators {
 
   EigenActuators(const Eigen::VectorXd& _angular_velocities) {
     angular_velocities = _angular_velocities;
-  };
+  }
 
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
   Eigen::VectorXd angles;              // In rad.
@@ -86,7 +93,11 @@ struct EigenTorqueThrust {
 
 struct EigenRollPitchYawrateThrust {
   EigenRollPitchYawrateThrust()
+<<<<<<< HEAD
       : roll(0.0), pitch(0.0), yaw_rate(0.0), thrust(Eigen::Vector3d::Zero()){};
+=======
+      : roll(0.0), pitch(0.0), yaw_rate(0.0), thrust(Eigen::Vector3d::Zero()) {}
+>>>>>>> cf206701bb06a73c486af617f870c383da7d607f
 
   EigenRollPitchYawrateThrust(double _roll, double _pitch, double _yaw_rate,
                               const Eigen::Vector3d& _thrust)
@@ -107,7 +118,11 @@ struct EigenRollPitchYawrateThrust {
  */
 class EigenMavState {
  public:
+<<<<<<< HEAD
   typedef std::vector<EigenMavState, Eigen::aligned_allocator<EigenMavState> >
+=======
+  typedef std::vector<EigenMavState, Eigen::aligned_allocator<EigenMavState>>
+>>>>>>> cf206701bb06a73c486af617f870c383da7d607f
       Vector;
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
@@ -117,7 +132,25 @@ class EigenMavState {
         velocity_W(Eigen::Vector3d::Zero()),
         acceleration_B(Eigen::Vector3d::Zero()),
         orientation_W_B(Eigen::Quaterniond::Identity()),
+<<<<<<< HEAD
         angular_velocity_B(Eigen::Vector3d::Zero()){};
+=======
+        angular_velocity_B(Eigen::Vector3d::Zero()),
+        angular_acceleration_B(Eigen::Vector3d::Zero()) {}
+
+  EigenMavState(const Eigen::Vector3d& position_W,
+                const Eigen::Vector3d& velocity_W,
+                const Eigen::Vector3d& acceleration_B,
+                const Eigen::Quaterniond& orientation_W_B,
+                const Eigen::Vector3d& angular_velocity_B,
+                const Eigen::Vector3d& angular_acceleration_B)
+      : position_W(position_W),
+        velocity_W(velocity_W),
+        acceleration_B(acceleration_B),
+        orientation_W_B(orientation_W_B),
+        angular_velocity_B(angular_velocity_B),
+        angular_acceleration_B(angular_acceleration_B) {}
+>>>>>>> cf206701bb06a73c486af617f870c383da7d607f
 
   std::string toString() const {
     std::stringstream ss;
@@ -128,6 +161,11 @@ class EigenMavState {
        << orientation_W_B.x() << " " << orientation_W_B.y() << " "
        << orientation_W_B.z() << " " << std::endl
        << "angular_velocity_body: " << angular_velocity_B.transpose()
+<<<<<<< HEAD
+=======
+       << std::endl
+       << "angular_acceleration_body: " << angular_acceleration_B.transpose()
+>>>>>>> cf206701bb06a73c486af617f870c383da7d607f
        << std::endl;
 
     return ss.str();
@@ -138,11 +176,20 @@ class EigenMavState {
   Eigen::Vector3d acceleration_B;
   Eigen::Quaterniond orientation_W_B;
   Eigen::Vector3d angular_velocity_B;
+<<<<<<< HEAD
+=======
+  Eigen::Vector3d angular_acceleration_B;
+>>>>>>> cf206701bb06a73c486af617f870c383da7d607f
 };
 
 struct EigenTrajectoryPoint {
   typedef std::vector<EigenTrajectoryPoint,
+<<<<<<< HEAD
                       Eigen::aligned_allocator<EigenTrajectoryPoint> > Vector;
+=======
+                      Eigen::aligned_allocator<EigenTrajectoryPoint>>
+      Vector;
+>>>>>>> cf206701bb06a73c486af617f870c383da7d607f
   EigenTrajectoryPoint()
       : timestamp_ns(-1),
         time_from_start_ns(0),
@@ -152,7 +199,31 @@ struct EigenTrajectoryPoint {
         jerk_W(Eigen::Vector3d::Zero()),
         snap_W(Eigen::Vector3d::Zero()),
         orientation_W_B(Eigen::Quaterniond::Identity()),
+<<<<<<< HEAD
         angular_velocity_W(Eigen::Vector3d::Zero()){};
+=======
+        angular_velocity_W(Eigen::Vector3d::Zero()),
+        angular_acceleration_W(Eigen::Vector3d::Zero()) {}
+>>>>>>> cf206701bb06a73c486af617f870c383da7d607f
+
+  EigenTrajectoryPoint(int64_t _time_from_start_ns,
+                       const Eigen::Vector3d& _position,
+                       const Eigen::Vector3d& _velocity,
+                       const Eigen::Vector3d& _acceleration,
+                       const Eigen::Vector3d& _jerk,
+                       const Eigen::Vector3d& _snap,
+                       const Eigen::Quaterniond& _orientation,
+                       const Eigen::Vector3d& _angular_velocity,
+                       const Eigen::Vector3d& _angular_acceleration)
+      : time_from_start_ns(_time_from_start_ns),
+        position_W(_position),
+        velocity_W(_velocity),
+        acceleration_W(_acceleration),
+        jerk_W(_jerk),
+        snap_W(_snap),
+        orientation_W_B(_orientation),
+        angular_velocity_W(_angular_velocity),
+        angular_acceleration_W(_angular_acceleration) {}
 
   EigenTrajectoryPoint(int64_t _time_from_start_ns,
                        const Eigen::Vector3d& _position,
@@ -162,17 +233,17 @@ struct EigenTrajectoryPoint {
                        const Eigen::Vector3d& _snap,
                        const Eigen::Quaterniond& _orientation,
                        const Eigen::Vector3d& _angular_velocity)
-      : time_from_start_ns(_time_from_start_ns),
-        position_W(_position),
-        velocity_W(_velocity),
-        acceleration_W(_acceleration),
-        jerk_W(_jerk),
-        snap_W(_snap),
-        orientation_W_B(_orientation),
-        angular_velocity_W(_angular_velocity) {}
+      : EigenTrajectoryPoint(_time_from_start_ns, _position, _velocity,
+                             _acceleration, _jerk, _snap, _orientation,
+                             _angular_velocity, Eigen::Vector3d::Zero()) {}
 
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+<<<<<<< HEAD
   int64_t timestamp_ns;  // Time since epoch, negative value = invalid timestamp.
+=======
+  int64_t
+      timestamp_ns;  // Time since epoch, negative value = invalid timestamp.
+>>>>>>> cf206701bb06a73c486af617f870c383da7d607f
   int64_t time_from_start_ns;
   Eigen::Vector3d position_W;
   Eigen::Vector3d velocity_W;
@@ -182,10 +253,15 @@ struct EigenTrajectoryPoint {
 
   Eigen::Quaterniond orientation_W_B;
   Eigen::Vector3d angular_velocity_W;
+  Eigen::Vector3d angular_acceleration_W;
 
   // Accessors for making dealing with orientation/angular velocity easier.
   inline double getYaw() const { return yawFromQuaternion(orientation_W_B); }
   inline double getYawRate() const { return angular_velocity_W.z(); }
+<<<<<<< HEAD
+=======
+  inline double getYawAcc() const { return angular_acceleration_W.z(); }
+>>>>>>> cf206701bb06a73c486af617f870c383da7d607f
   // WARNING: sets roll and pitch to 0.
   inline void setFromYaw(double yaw) {
     orientation_W_B = quaternionFromYaw(yaw);
@@ -195,6 +271,14 @@ struct EigenTrajectoryPoint {
     angular_velocity_W.y() = 0.0;
     angular_velocity_W.z() = yaw_rate;
   }
+<<<<<<< HEAD
+=======
+  inline void setFromYawAcc(double yaw_acc) {
+    angular_acceleration_W.x() = 0.0;
+    angular_acceleration_W.y() = 0.0;
+    angular_acceleration_W.z() = yaw_acc;
+  }
+>>>>>>> cf206701bb06a73c486af617f870c383da7d607f
 
   std::string toString() const {
     std::stringstream ss;
@@ -204,7 +288,12 @@ struct EigenTrajectoryPoint {
        << "jerk:              " << jerk_W.transpose() << std::endl
        << "snap:              " << snap_W.transpose() << std::endl
        << "yaw:               " << getYaw() << std::endl
+<<<<<<< HEAD
        << "yaw_rate:          " << getYawRate() << std::endl;
+=======
+       << "yaw_rate:          " << getYawRate() << std::endl
+       << "yaw_acc:           " << getYawAcc() << std::endl;
+>>>>>>> cf206701bb06a73c486af617f870c383da7d607f
 
     return ss.str();
   }
@@ -234,11 +323,18 @@ struct EigenOdometry {
   Eigen::Quaterniond orientation_W_B;
   Eigen::Vector3d velocity_B;  // Velocity in expressed in the Body frame!
   Eigen::Vector3d angular_velocity_B;
+  Eigen::Matrix<double, 6, 6> pose_covariance_;
+  Eigen::Matrix<double, 6, 6> twist_covariance_;
 
   // Accessors for making dealing with orientation/angular velocity easier.
   inline double getYaw() const { return yawFromQuaternion(orientation_W_B); }
+<<<<<<< HEAD
   inline void getEulerAngles(Eigen::Vector3d& euler_angles) {
     getEulerAnglesFromQuaternion(orientation_W_B, &euler_angles);
+=======
+  inline void getEulerAngles(Eigen::Vector3d* euler_angles) const {
+    getEulerAnglesFromQuaternion(orientation_W_B, euler_angles);
+>>>>>>> cf206701bb06a73c486af617f870c383da7d607f
   }
   inline double getYawRate() const { return angular_velocity_B.z(); }
   // WARNING: sets roll and pitch to 0.
@@ -262,10 +358,17 @@ struct EigenOdometry {
 // TODO(helenol): replaced with aligned allocator headers from Simon.
 #define MAV_MSGS_CONCATENATE(x, y) x##y
 #define MAV_MSGS_CONCATENATE2(x, y) MAV_MSGS_CONCATENATE(x, y)
+<<<<<<< HEAD
 #define MAV_MSGS_MAKE_ALIGNED_CONTAINERS(EIGEN_TYPE)                     \
   typedef std::vector<EIGEN_TYPE, Eigen::aligned_allocator<EIGEN_TYPE> > \
       MAV_MSGS_CONCATENATE2(EIGEN_TYPE, Vector);                         \
   typedef std::deque<EIGEN_TYPE, Eigen::aligned_allocator<EIGEN_TYPE> >  \
+=======
+#define MAV_MSGS_MAKE_ALIGNED_CONTAINERS(EIGEN_TYPE)                    \
+  typedef std::vector<EIGEN_TYPE, Eigen::aligned_allocator<EIGEN_TYPE>> \
+      MAV_MSGS_CONCATENATE2(EIGEN_TYPE, Vector);                        \
+  typedef std::deque<EIGEN_TYPE, Eigen::aligned_allocator<EIGEN_TYPE>>  \
+>>>>>>> cf206701bb06a73c486af617f870c383da7d607f
       MAV_MSGS_CONCATENATE2(EIGEN_TYPE, Deque);
 
 MAV_MSGS_MAKE_ALIGNED_CONTAINERS(EigenAttitudeThrust)

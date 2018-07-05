@@ -45,8 +45,13 @@ inline void msgArrayFromVector(const Eigen::VectorXd& x,
 }
 
 /// Converts a PolynomialSegment message to an EigenPolynomialSegment structure.
+<<<<<<< HEAD
 inline void eigenPolynomialSegmentFromMsg(
     const PolynomialSegment4D& msg, EigenPolynomialSegment* segment) {
+=======
+inline void eigenPolynomialSegmentFromMsg(const PolynomialSegment4D& msg,
+                                          EigenPolynomialSegment* segment) {
+>>>>>>> cf206701bb06a73c486af617f870c383da7d607f
   assert(segment != NULL);
 
   vectorFromMsgArray(msg.x, &(segment->x));
@@ -76,8 +81,13 @@ inline void eigenPolynomialTrajectoryFromMsg(
 
 /// Converts an EigenPolynomialSegment to a PolynomialSegment message. Does NOT
 /// set the header!
+<<<<<<< HEAD
 inline void polynomialSegmentMsgFromEigen(
     const EigenPolynomialSegment& segment, PolynomialSegment4D* msg) {
+=======
+inline void polynomialSegmentMsgFromEigen(const EigenPolynomialSegment& segment,
+                                          PolynomialSegment4D* msg) {
+>>>>>>> cf206701bb06a73c486af617f870c383da7d607f
   assert(msg != NULL);
   msgArrayFromVector(segment.x, &(msg->x));
   msgArrayFromVector(segment.y, &(msg->y));
@@ -102,6 +112,11 @@ inline void polynomialTrajectoryMsgFromEigen(
     msg->segments.push_back(segment);
   }
 }
+<<<<<<< HEAD
 }
+=======
+
+}  // namespace planning_msgs
+>>>>>>> cf206701bb06a73c486af617f870c383da7d607f
 
 #endif

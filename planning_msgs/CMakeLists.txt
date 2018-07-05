@@ -9,17 +9,31 @@ include_directories(${Eigen_INCLUDE_DIRS})
 
 add_message_files(
   FILES
+<<<<<<< HEAD
   PointCloudWithPose.msg
   PolynomialSegment4D.msg
   PolynomialTrajectory4D.msg
   WayPoint.msg
   WayPointArray.msg
   WaypointType.msg
+=======
+  Point2D.msg
+  PointCloudWithPose.msg
+  Polygon2D.msg
+  PolygonWithHoles.msg
+  PolygonWithHolesStamped.msg
+  PolynomialSegment4D.msg
+  PolynomialTrajectory4D.msg
+>>>>>>> cf206701bb06a73c486af617f870c383da7d607f
 )
 
 add_service_files(
   FILES
   PlannerService.srv
+<<<<<<< HEAD
+=======
+  PolygonService.srv
+>>>>>>> cf206701bb06a73c486af617f870c383da7d607f
 )
 
 generate_messages(

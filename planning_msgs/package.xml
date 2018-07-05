@@ -1,7 +1,11 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>planning_msgs</name>
+<<<<<<< HEAD
   <version>0.0.0</version>
+=======
+  <version>3.2.0</version>
+>>>>>>> cf206701bb06a73c486af617f870c383da7d607f
   <description>
     Messages specific to MAV planning, especially polynomial planning.
   </description>
